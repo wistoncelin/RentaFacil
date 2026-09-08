@@ -1,0 +1,93 @@
+{
+  "info": {
+    "name": "RentaFácil API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Vehicle - Availability",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:5201/api/vehicles/availability?vehicleType=SUV&startDate=2026-09-10&endDate=2026-09-15",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5201",
+          "path": ["api", "vehicles", "availability"],
+          "query": [
+            { "key": "vehicleType", "value": "SUV" },
+            { "key": "startDate", "value": "2026-09-10" },
+            { "key": "endDate", "value": "2026-09-15" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Vehicle - Create",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"plate\": \"QWE321\",\n  \"brand\": \"Mazda\",\n  \"model\": \"CX-5\",\n  \"type\": \"SUV\",\n  \"dailyRate\": 85\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5201/api/vehicles",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5201",
+          "path": ["api", "vehicles"]
+        }
+      }
+    },
+    {
+      "name": "Booking - Create Client",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"documentNumber\": \"2034567890\",\n  \"name\": \"Carlos\",\n  \"lastName\": \"Rojas\",\n  \"email\": \"carlos@rentafacil.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5202/api/bookings/clients",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5202",
+          "path": ["api", "bookings", "clients"]
+        }
+      }
+    },
+    {
+      "name": "Booking - Create Booking",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"clientId\": 1,\n  \"vehicleId\": 1,\n  \"startDate\": \"2026-09-10\",\n  \"endDate\": \"2026-09-15\",\n  \"dailyRate\": 70\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5202/api/bookings",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5202",
+          "path": ["api", "bookings"]
+        }
+      }
+    },
+    {
+      "name": "Booking - History By Client",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:5202/api/bookings/client/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5202",
+          "path": ["api", "bookings", "client", "1"]
+        }
+      }
+    }
+  ]
+}

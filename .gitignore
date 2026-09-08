@@ -1,0 +1,25 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+TestResults/
+coverage.cobertura.xml
+
+# Node / Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/coverage/
+
+# Docker
+*.db
+
+# VS Code
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store
