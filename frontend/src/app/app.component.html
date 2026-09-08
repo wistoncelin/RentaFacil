@@ -1,0 +1,512 @@
+<style>
+  :host {
+    --bright-blue: oklch(51.01% 0.274 263.83);
+    --electric-violet: oklch(53.18% 0.28 296.97);
+    --french-violet: oklch(47.66% 0.246 305.88);
+    --vivid-pink: oklch(69.02% 0.277 332.77);
+    --hot-red: oklch(61.42% 0.238 15.34);
+    --orange-red: oklch(63.32% 0.24 31.68);
+
+    --gray-900: oklch(19.37% 0.006 300.98);
+    --gray-700: oklch(36.98% 0.014 302.71);
+    --gray-400: oklch(70.9% 0.015 304.04);
+
+    --red-to-pink-to-purple-vertical-gradient: linear-gradient(
+      180deg,
+      var(--orange-red) 0%,
+      var(--vivid-pink) 50%,
+      var(--electric-violet) 100%
+    );
+
+    --red-to-pink-to-purple-horizontal-gradient: linear-gradient(
+      90deg,
+      var(--orange-red) 0%,
+      var(--vivid-pink) 50%,
+      var(--electric-violet) 100%
+    );
+
+    --pill-accent: var(--bright-blue);
+
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    font-size: 3.125rem;
+    color: var(--gray-900);
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.125rem;
+    margin: 0;
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+  }
+
+  p {
+    margin: 0;
+    color: var(--gray-700);
+  }
+
+  main {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: inherit;
+    position: relative;
+  }
+
+  .angular-logo {
+    max-width: 9.2rem;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 3rem;
+  }
+
+  .content h1 {
+    margin-top: 1.75rem;
+  }
+
+  .content p {
+    margin-top: 1.5rem;
+  }
+
+  .divider {
+    width: 1px;
+    background: var(--red-to-pink-to-purple-vertical-gradient);
+    margin-inline: 0.5rem;
+  }
+
+  .pill-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    --pill-accent: var(--bright-blue);
+    background: color-mix(in srgb, var(--pill-accent) 5%, transparent);
+    color: var(--pill-accent);
+    padding-inline: 0.75rem;
+    padding-block: 0.375rem;
+    border-radius: 2.75rem;
+    border: 0;
+    transition: background 0.3s ease;
+    font-family: var(--inter-font);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.4rem;
+    letter-spacing: -0.00875rem;
+    text-decoration: none;
+  }
+
+  .pill:hover {
+    background: color-mix(in srgb, var(--pill-accent) 15%, transparent);
+  }
+
+  .pill-group .pill:nth-child(6n + 1) {
+    --pill-accent: var(--bright-blue);
+  }
+  .pill-group .pill:nth-child(6n + 2) {
+    --pill-accent: var(--french-violet);
+  }
+  .pill-group .pill:nth-child(6n + 3),
+  .pill-group .pill:nth-child(6n + 4),
+  .pill-group .pill:nth-child(6n + 5) {
+    --pill-accent: var(--hot-red);
+  }
+
+  .pill-group svg {
+    margin-inline-start: 0.25rem;
+  }
+
+  .social-links {
+    display: flex;
+    align-items: center;
+    gap: 0.73rem;
+    margin-top: 1.5rem;
+  }
+
+  .social-links path {
+    transition: fill 0.3s ease;
+    fill: var(--gray-400);
+  }
+
+  .social-links a:hover svg path {
+    fill: var(--gray-900);
+  }
+
+  .page-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--gray-900);
+    color: white;
+  }
+
+  .eyebrow {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    margin: 0;
+  }
+
+  .badge {
+    background: var(--bright-blue);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .status-panel {
+    background: var(--gray-700);
+    color: white;
+    padding: 1rem 2rem;
+    margin: 1rem 0;
+    border-radius: 0.5rem;
+  }
+
+  .dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .panel {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    color: var(--gray-900);
+  }
+
+  .field-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.875rem;
+    color: var(--gray-700);
+  }
+
+  input,
+  select {
+    padding: 0.75rem;
+    border: 1px solid var(--gray-400);
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    color: var(--gray-900);
+  }
+
+  button.primary {
+    background: var(--bright-blue);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  button.primary:disabled {
+    background: var(--gray-400);
+    cursor: not-allowed;
+  }
+
+  button.secondary {
+    background: transparent;
+    color: var(--bright-blue);
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--bright-blue);
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  button.secondary:hover {
+    background: var(--bright-blue);
+    color: white;
+  }
+
+  .vehicle-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .vehicle-card {
+    background: var(--gray-100);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tag {
+    background: var(--bright-blue);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 1.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    color: var(--gray-500);
+    padding: 2rem;
+    border: 1px dashed var(--gray-300);
+    border-radius: 0.5rem;
+  }
+
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .history-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .history-list {
+    background: var(--gray-100);
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+
+  .history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--gray-300);
+  }
+
+  .status-badge {
+    background: var(--green-500);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 1.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 650px) {
+    .content {
+      flex-direction: column;
+      width: max-content;
+    }
+
+    .divider {
+      height: 1px;
+      width: 100%;
+      background: var(--red-to-pink-to-purple-horizontal-gradient);
+      margin-block: 1.5rem;
+    }
+
+    .field-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .dashboard {
+      grid-template-columns: 1fr;
+    }
+
+    .bottom-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<main class="page-shell">
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">RentaFácil S.A.S.</p>
+      <h1>{{ title }}</h1>
+    </div>
+    <span class="badge">Microservicios + Angular</span>
+  </header>
+
+  <section class="panel status-panel">
+    <strong>Estado</strong>
+    <p>{{ statusMessage }}</p>
+  </section>
+
+  <section class="dashboard">
+    <div class="panel">
+      <h2>Disponibilidad</h2>
+
+      <div class="field-grid">
+        <label>
+          <span>Tipo de vehículo</span>
+          <select [(ngModel)]="availability.vehicleType">
+            <option *ngFor="let type of vehicleTypes" [value]="type">{{ type }}</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Fecha inicio</span>
+          <input type="date" [(ngModel)]="availability.startDate" />
+        </label>
+
+        <label>
+          <span>Fecha fin</span>
+          <input type="date" [(ngModel)]="availability.endDate" />
+        </label>
+      </div>
+
+      <button class="primary" type="button" (click)="searchAvailability()" [disabled]="isLoading">
+        {{ isLoading ? 'Buscando...' : 'Buscar vehículos' }}
+      </button>
+
+      <div class="vehicle-list" *ngIf="availableVehicles.length; else emptyState">
+        <article class="vehicle-card" *ngFor="let vehicle of availableVehicles">
+          <div>
+            <span class="tag">{{ vehicle.type }}</span>
+            <h3>{{ vehicle.brand }} {{ vehicle.model }}</h3>
+            <p>Placa: {{ vehicle.plate }}</p>
+            <p>Tarifa: ${{ vehicle.dailyRate }} / día</p>
+          </div>
+          <button type="button" (click)="selectVehicle(vehicle)">Reservar</button>
+        </article>
+      </div>
+
+      <ng-template #emptyState>
+        <p class="empty-state">No hay vehículos disponibles para ese rango.</p>
+      </ng-template>
+    </div>
+
+    <div class="panel">
+      <h2>Crear reserva</h2>
+
+      <div class="field-grid compact">
+        <label>
+          <span>ID del cliente</span>
+          <input type="number" min="1" [(ngModel)]="bookingForm.clientId" />
+        </label>
+
+        <label>
+          <span>ID del vehículo</span>
+          <input type="number" min="1" [(ngModel)]="bookingForm.vehicleId" />
+        </label>
+
+        <label>
+          <span>Fecha inicio</span>
+          <input type="date" [(ngModel)]="bookingForm.startDate" />
+        </label>
+
+        <label>
+          <span>Fecha fin</span>
+          <input type="date" [(ngModel)]="bookingForm.endDate" />
+        </label>
+
+        <label>
+          <span>Tarifa diaria</span>
+          <input type="number" min="0" [(ngModel)]="bookingForm.dailyRate" />
+        </label>
+      </div>
+
+      <button class="primary" type="button" (click)="createBooking()">Crear reserva</button>
+    </div>
+  </section>
+
+  <section class="bottom-grid">
+    <div class="panel">
+      <h2>Registrar cliente</h2>
+
+      <div class="field-grid compact">
+        <label>
+          <span>Documento</span>
+          <input type="text" [(ngModel)]="clientForm.documentNumber" />
+        </label>
+        <label>
+          <span>Nombres</span>
+          <input type="text" [(ngModel)]="clientForm.name" />
+        </label>
+        <label>
+          <span>Apellidos</span>
+          <input type="text" [(ngModel)]="clientForm.lastName" />
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" [(ngModel)]="clientForm.email" />
+        </label>
+      </div>
+
+      <button class="secondary" type="button" (click)="createClient()">Guardar cliente</button>
+    </div>
+
+    <div class="panel">
+      <h2>Historial por cliente</h2>
+
+      <div class="history-controls">
+        <label>
+          <span>Cliente</span>
+          <input type="number" [(ngModel)]="historyFiltro" min="1" />
+        </label>
+        <button type="button" class="secondary" (click)="loadHistory()">Consultar</button>
+      </div>
+
+      <div class="history-list" *ngIf="bookingHistory.length; else emptyHistory">
+        <div class="history-item" *ngFor="let item of bookingHistory">
+          <strong>{{ item.bookingReference }}</strong>
+          <span>{{ item.startDate }} → {{ item.endDate }}</span>
+          <span>Total: ${{ item.totalAmount }}</span>
+          <span class="status-badge">{{ item.status }}</span>
+        </div>
+      </div>
+
+      <ng-template #emptyHistory>
+        <p class="empty-state">No hay reservas para este cliente.</p>
+      </ng-template>
+    </div>
+  </section>
+</main>
