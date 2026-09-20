@@ -22,7 +22,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var useInMemory = builder.Configuration.GetValue<bool?>("UseInMemoryDatabase") ?? true;
+var useInMemory = builder.Configuration.GetValue<bool?>("UseInMemoryDatabase") ?? false;
 if (useInMemory)
 {
     builder.Services.AddDbContext<BookingDbContext>(options =>

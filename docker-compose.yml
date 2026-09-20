@@ -6,7 +6,7 @@ services:
     container_name: rentafacil-sql
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "Passw0rd!"
+      MSSQL_SA_PASSWORD: "Passw0rd12345!"
     ports:
       - "1433:1433"
     volumes:
@@ -19,7 +19,7 @@ services:
     container_name: rentafacil-vehicle
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=RentaFacilVehicleDb;User Id=sa;Password=Passw0rd!;TrustServerCertificate=True;Encrypt=False;"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=RentaFacilVehicleDb;User Id=sa;Password=Passw0rd12345!;TrustServerCertificate=True;Encrypt=False;"
     ports:
       - "5201:8080"
     depends_on:
@@ -32,7 +32,7 @@ services:
     container_name: rentafacil-booking
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=RentaFacilBookingDb;User Id=sa;Password=Passw0rd!;TrustServerCertificate=True;Encrypt=False;"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=RentaFacilBookingDb;User Id=sa;Password=Passw0rd12345!;TrustServerCertificate=True;Encrypt=False;"
       VehicleService__BaseUrl: "http://vehicle-service:8080"
     ports:
       - "5202:8080"
@@ -47,7 +47,7 @@ services:
     container_name: rentafacil-report-worker
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=RentaFacilReportDb;User Id=sa;Password=Passw0rd!;TrustServerCertificate=True;Encrypt=False;"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=RentaFacilReportDb;User Id=sa;Password=Passw0rd12345!;TrustServerCertificate=True;Encrypt=False;"
     depends_on:
       - sqlserver
 

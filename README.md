@@ -72,17 +72,54 @@ README.md
 ### Requisitos
 
 - .NET 10 SDK
-- SQL Server local o Docker
+- SQL Server 2022 (local o Docker)
 - Node 20+
 - Angular CLI 18+
 
-### 6.1 Iniciar base de datos con Docker Compose
+### 6.1 Configuración de base de datos
+
+#### Opción 1: Usar Docker Compose (recomendado)
 
 ```bash
 docker compose up -d sqlserver
 ```
 
-### 6.2 Ejecutar backend
+Esto levanta SQL Server en `localhost:1433` con las credenciales:
+- Usuario: `sa`
+- Contraseña: `Passw0rd12345!`
+
+#### Opción 2: SQL Server local instalado
+
+Si tienes SQL Server instalado localmente, verifica que esté escuchando en puerto `1433` y con las mismas credenciales anteriores.
+
+### 6.2 Variables de entorno y configuración
+
+Los servicios utilizan SQL Server local por defecto (sin base de datos en memoria). Las connection strings se configuran en `appsettings.json`:
+
+**BookingService:**
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost,1433;Database=RentaFacilBookingDb;User Id=sa;Password=Passw0rd12345!;TrustServerCertificate=True;Encrypt=False;"
+}
+```
+
+**VehicleService:**
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost,1433;Database=RentaFacilVehicleDb;User Id=sa;Password=Passw0rd12345!;TrustServerCertificate=True;Encrypt=False;"
+}
+```
+
+**ReportWorker:**
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost,1433;Database=RentaFacilReportDb;User Id=sa;Password=Passw0rd12345!;TrustServerCertificate=True;Encrypt=False;"
+}
+```
+
+Las bases de datos se crean automáticamente al iniciar cada servicio (con `EnsureCreated()`).
+
+### 6.3 Ejecutar backend
 
 VehicleService:
 
@@ -102,7 +139,7 @@ ReportWorker:
 dotnet run --project src/ReportWorker/ReportWorker.csproj
 ```
 
-### 6.3 Ejecutar frontend
+### 6.4 Ejecutar frontend
 
 ```bash
 cd frontend
@@ -144,7 +181,27 @@ Cobertura observada en el reporte generado:
 
 Esto supera el umbral solicitado de >10%.
 
-## 9. Buenas prácticas y decisiones de diseño
+## 9. Configuración de base de datos
+
+El proyecto utiliza **SQL Server local** como base de datos principal en todos los servicios:
+
+- **BookingService** → `RentaFacilBookingDb`
+- **VehicleService** → `RentaFacilVehicleDb`
+- **ReportWorker** → `RentaFacilReportDb`
+
+### Base de datos en memoria (desarrollo alternativo)
+
+Si deseas usar base de datos en memoria para pruebas rápidas, puedes cambiar en `appsettings.Development.json`:
+
+```json
+{
+  "UseInMemoryDatabase": true
+}
+```
+
+> ⚠️ Por defecto está establecido en `false` para usar SQL Server local.
+
+## 10. Buenas prácticas y decisiones de diseño
 
 - Separación por capas: Domain, Application, Infrastructure, Presentation
 - DTOs para controlar contratos y evitar acoplamiento fuerte
@@ -154,22 +211,22 @@ Esto supera el umbral solicitado de >10%.
 - Tratamiento de errores con mensajes de negocio claros
 - Microservicios con comunicación HTTP para desacoplar lógica de reserva y disponibilidad
 
-## 10. Azure
+## 11. Azure
 
 Aunque no se ejecutó despliegue real en Azure por limitaciones de credenciales, la solución está preparada para ese patrón:
 
-### 10.1 AKS / Contenedores
+### 11.1 AKS / Contenedores
 
 - Los microservicios se empaquetan con Dockerfiles
 - Se pueden desplegar en AKS con Helm o manifestos YAML
 - Se recomienda usar Azure Container Registry (ACR) como registro privado
 
-### 10.2 Azure SQL Database
+### 11.2 Azure SQL Database
 
 - Se recomienda mover SQL Server local a Azure SQL Database
 - Configurar cadenas de conexión con Managed Identity o secretos de Azure Key Vault
 
-### 10.3 Azure DevOps CI/CD
+### 11.3 Azure DevOps CI/CD
 
 Pipeline sugerida:
 1. Build del backend (.NET)
@@ -197,7 +254,7 @@ steps:
   workingDirectory: frontend
 ```
 
-## 11. Git y commits
+## 12. Git y commits
 
 Este repositorio se inicializa con historial de funcionamiento por funcionalidades en ramas/commits. La sugerencia es mantener commits por tema:
 
@@ -208,7 +265,7 @@ Este repositorio se inicializa con historial de funcionamiento por funcionalidad
 - implement frontend
 - add docker and docs
 
-## 12. Colección Postman (opcional)
+## 13. Colección Postman (opcional)
 
 También se recomienda importar una colección con estos endpoints:
 - /api/vehicles/availability
@@ -217,6 +274,6 @@ También se recomienda importar una colección con estos endpoints:
 - /api/bookings
 - /api/bookings/client/{id}
 
-## 13. Conclusión
+## 14. Conclusión
 
 El proyecto entrega una base sólida para una solución de reservas de vehículos con arquitectura distribuida, buenas prácticas, soporte de SQL Server y despliegue listo para Azure.
