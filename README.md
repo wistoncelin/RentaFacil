@@ -226,33 +226,6 @@ Aunque no se ejecutó despliegue real en Azure por limitaciones de credenciales,
 - Se recomienda mover SQL Server local a Azure SQL Database
 - Configurar cadenas de conexión con Managed Identity o secretos de Azure Key Vault
 
-### 11.3 Azure DevOps CI/CD
-
-Pipeline sugerida:
-1. Build del backend (.NET)
-2. Test unitarios con cobertura
-3. Build del frontend (Angular)
-4. Build de imágenes Docker
-5. Push a ACR
-6. Deploy a AKS
-
-Ejemplo de pasos:
-
-```yaml
-trigger:
-- main
-
-pool:
-  vmImage: ubuntu-latest
-
-steps:
-- script: dotnet build
-- script: dotnet test tests/Rentafacil.Tests/Rentafacil.Tests.csproj --collect:"XPlat Code Coverage"
-- script: npm install
-  workingDirectory: frontend
-- script: npx ng build
-  workingDirectory: frontend
-```
 
 ## 12. Git y commits
 
@@ -276,4 +249,4 @@ También se recomienda importar una colección con estos endpoints:
 
 ## 14. Conclusión
 
-El proyecto entrega una base sólida para una solución de reservas de vehículos con arquitectura distribuida, buenas prácticas, soporte de SQL Server y despliegue listo para Azure.
+El proyecto entrega una base para una solución de reservas de vehículos con arquitectura distribuida, buenas prácticas, soporte de SQL Server y despliegue listo para Azure.
